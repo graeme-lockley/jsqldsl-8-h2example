@@ -11,8 +11,8 @@
 
         <includes>
             <include>
-                <schema>PUBLIC</schema>
-                <table>DEPARTMENT</table>
+                <!--<schema>PUBLIC</schema>-->
+                <!--<table>DEPARTMENT</table>-->
             </include>
         </includes>
     </source>
