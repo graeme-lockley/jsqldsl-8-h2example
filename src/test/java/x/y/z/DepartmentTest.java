@@ -1,10 +1,11 @@
 package x.y.z;
 
 import org.junit.Test;
-import za.co.no9.jsqldsl.db.h2.Query;
+import za.co.no9.jsqldsl.db.Query;
 
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
+
 
 public class DepartmentTest {
     @Test

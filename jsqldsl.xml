@@ -17,9 +17,20 @@
         </includes>
     </source>
 
-    <target>
-        <package>x.y.z</package>
-        <destination>target/generated-sources/jsqldsl</destination>
-        <driver>za.co.no9.jsqldsl.drivers.H2</driver>
-    </target>
+    <targets>
+        <target>
+            <handler>za.co.no9.jsqldsl.tools.jsqldsl.Handler</handler>
+            <destination>target/generated-sources/jsqldsl</destination>
+            <properties>
+                <property>
+                    <name>package</name>
+                    <value>x.y.z</value>
+                </property>
+                <property>
+                    <name>driver</name>
+                    <value>za.co.no9.jsqldsl.drivers.H2</value>
+                </property>
+            </properties>
+        </target>
+    </targets>
 </configuration>
