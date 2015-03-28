@@ -18,4 +18,21 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
         </createTable>
     </changeSet>
 
+    <changeSet id="2" author="bob">
+        <createTable tableName="employee">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="department_id" type="int"/>
+            <column name="active" type="boolean" defaultValueBoolean="true"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="3" author="bob">
+        <addForeignKeyConstraint baseTableName="employee" baseColumnNames="department_id" constraintName="employee_fk1" referencedTableName="department" referencedColumnNames="id"/>
+    </changeSet>
+
 </databaseChangeLog>
