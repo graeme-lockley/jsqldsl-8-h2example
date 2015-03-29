@@ -32,5 +32,41 @@
                 </property>
             </properties>
         </target>
+        <target>
+            <handler>za.co.no9.jsqldsl.tools.schemadoc.Handler</handler>
+            <destination>target/schemadoc</destination>
+            <properties>
+                <property>
+                    <name>start-document-template</name>
+                    <value>
+                        digraph G {
+                        node [shape=none];
+                    </value>
+                </property>
+                <property>
+                    <name>table-template</name>
+                    <value>
+                        ${tableMetaData.tableName().dbName()} [label=<![CDATA[
+<<table border="1" cellborder="0">
+<tr><td>${tableMetaData.tableName().dbName()}</td></tr>
+<#list tableMetaData.fields() as field>
+<tr><td port="${field.name()}">${field.name()} ${field.fieldType()}</td></tr>
+</#list>
+</table>>];
+]]>
+                    </value>
+                </property>
+                <property>
+                    <name>end-document-template</name>
+                    <value>
+                        }
+                    </value>
+                </property>
+                <property>
+                    <name>driver</name>
+                    <value>za.co.no9.jsqldsl.drivers.H2</value>
+                </property>
+            </properties>
+        </target>
     </targets>
 </configuration>
