@@ -48,6 +48,8 @@
                         ];
                         edge [
                         arrowsize="0.8"
+                        fontname="Helvetica"
+                        fontsize="8"
                         ];
                     </value>
                 </property>
@@ -55,13 +57,20 @@
                     <name>table-template</name>
                     <value>
                         ${tableMetaData.tableName().dbName()} [label=<![CDATA[
-<<table BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+<<table BORDER="2" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
 <tr><td COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">${tableMetaData.tableName().dbName()}</td></tr>
 <#list tableMetaData.fields() as field>
-<tr><td port="${field.name()}" COLSPAN="2" <#if field.isPrimaryKey()>
+<tr><td port="${field.name()}" COLSPAN="2"
+<#if field.isPrimaryKey()>
 BGCOLOR="#bed1b8"
 </#if>
-ALIGN="LEFT">${field.name()}</td><td>${field.fieldType()}<#if field.columnSize().isPresent()>
+ALIGN="LEFT">
+<#if field.isNullable()>
+<FONT COLOR="#696969">${field.name()}</FONT>
+<#else>
+${field.name()}
+</#if>
+</td><td port="${field.name()}-E">${field.fieldType()}<#if field.columnSize().isPresent()>
 (${field.columnSize().get()})
 </#if>
 </td></tr>
@@ -70,9 +79,9 @@ ALIGN="LEFT">${field.name()}</td><td>${field.fieldType()}<#if field.columnSize()
 >];
 <#list tableMetaData.foreignKeys() as foreignKey>
 <#if foreignKey.fkColumns()[0].isNullable()>
-"${foreignKey.fkTableName().dbName()}":"${foreignKey.fkColumns()[0].name()}" -> "${foreignKey.pkTableName().dbName()}":"${foreignKey.pkColumns()[0].name()}" [arrowhead=none dir=back arrowtail=crowodot];
+        "${foreignKey.fkTableName().dbName()}":"${foreignKey.fkColumns()[0].name()}":w -> "${foreignKey.pkTableName().dbName()}":"${foreignKey.pkColumns()[0].name()}-E":e [dir=back arrowhead=none arrowtail=nonecrowodot label="${foreignKey.fkName().get()}"];
 <#else>
-"${foreignKey.fkTableName().dbName()}":"${foreignKey.fkColumns()[0].name()}" -> "${foreignKey.pkTableName().dbName()}":"${foreignKey.pkColumns()[0].name()}" [dir=both arrowhead=tee arrowtail=crowodot];
+        "${foreignKey.fkTableName().dbName()}":"${foreignKey.fkColumns()[0].name()}":w -> "${foreignKey.pkTableName().dbName()}":"${foreignKey.pkColumns()[0].name()}-E":e [dir=both arrowhead=nonetee arrowtail=nonecrowodot label="${foreignKey.fkName().get()}"];
 </#if>
 </#list>
 ]]>
@@ -92,3 +101,5 @@ ALIGN="LEFT">${field.name()}</td><td>${field.fieldType()}<#if field.columnSize()
         </target>
     </targets>
 </configuration>
+
+
