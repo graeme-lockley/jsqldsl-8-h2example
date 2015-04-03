@@ -37,4 +37,37 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
         <addForeignKeyConstraint baseTableName="employee" baseColumnNames="department_id" constraintName="employee_fk1" referencedTableName="department" referencedColumnNames="id"/>
     </changeSet>
 
+    <changeSet id="4" author="bob">
+        <createTable tableName="asset_type">
+            <column name="id" type="int">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="short_code" type="varchar(5)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="5" author="bob">
+        <createTable tableName="asset">
+            <column name="asset_type_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="employee_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="6" author="bob">
+        <addForeignKeyConstraint baseTableName="asset" baseColumnNames="asset_type_id" constraintName="asset_fk1" referencedTableName="asset_type" referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="7" author="bob">
+        <addForeignKeyConstraint baseTableName="asset" baseColumnNames="employee_id" constraintName="asset_fk2" referencedTableName="employee" referencedColumnNames="id"/>
+    </changeSet>
+
 </databaseChangeLog>
