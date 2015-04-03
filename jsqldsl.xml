@@ -40,19 +40,30 @@
                     <name>start-document-template</name>
                     <value>
                         digraph G {
-                        node [shape=none];
+                        node [
+                        fontname="Helvetica"
+                        fontsize="11"
+                        shape="plaintext"
+                        ];
+                        edge [
+                        arrowsize="0.8"
+                        ];
                     </value>
                 </property>
                 <property>
                     <name>table-template</name>
                     <value>
                         ${tableMetaData.tableName().dbName()} [label=<![CDATA[
-<<table border="1" cellborder="0">
-<tr><td>${tableMetaData.tableName().dbName()}</td></tr>
+<<table BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+<tr><td COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">${tableMetaData.tableName().dbName()}</td></tr>
 <#list tableMetaData.fields() as field>
-<tr><td port="${field.name()}">${field.name()} ${field.fieldType()}</td></tr>
+<tr><td port="${field.name()}" COLSPAN="2" BGCOLOR="#bed1b8" ALIGN="LEFT">${field.name()}</td><td>${field.fieldType()}</td></tr>
 </#list>
-</table>>];
+</table>
+>];
+<#list tableMetaData.foreignKeys() as foreignKey>
+"${foreignKey.fkTableName().dbName()}":"${foreignKey.fkColumnNames()[0]}" -> "${foreignKey.pkTableName().dbName()}":"${foreignKey.pkColumnNames()[0]}" [arrowhead=none dir=back arrowtail=crowodot];
+</#list>
 ]]>
                     </value>
                 </property>
