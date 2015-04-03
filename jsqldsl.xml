@@ -62,7 +62,7 @@ ${tableMetaData.tableName().dbName()} [label=<![CDATA[
 <<TABLE BORDER="2" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
 <TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">${tableMetaData.tableName().dbName()}</TD></TR>
 <#list tableMetaData.fields() as field>
-<TR><TD PORT="${field.name()}" COLSPAN="2"
+<TR><TD COLSPAN="2"
 <#if field.isPrimaryKey()>
     BGCOLOR="#bed1b8"
 </#if>
@@ -71,7 +71,7 @@ ALIGN="LEFT"><#if field.isNullable()>
 <#else>
     ${field.name()}
 </#if>
-</TD><TD PORT="${field.name()}-E">${field.fieldType()}<#if field.columnSize().isPresent()>
+</TD><TD>${field.fieldType()}<#if field.columnSize().isPresent()>
     (${field.columnSize().get()})
 </#if>
 </TD></TR>
@@ -80,9 +80,9 @@ ALIGN="LEFT"><#if field.isNullable()>
 >];
 <#list tableMetaData.foreignKeys() as foreignKey>
 <#if foreignKey.fkColumns()[0].isNullable()>
-        "${foreignKey.fkTableName().dbName()}":"${foreignKey.fkColumns()[0].name()}":w -> "${foreignKey.pkTableName().dbName()}":"${foreignKey.pkColumns()[0].name()}-E":e [dir=back arrowhead=none arrowtail=nonecrowodot label="${foreignKey.fkName().get()}"];
+        "${foreignKey.fkTableName().dbName()}" -> "${foreignKey.pkTableName().dbName()}" [dir=back arrowhead=none arrowtail=nonecrowodot headlabel="${foreignKey.pkColumnNames(", ")}" taillabel="${foreignKey.fkColumnNames(", ")}"];
 <#else>
-        "${foreignKey.fkTableName().dbName()}":"${foreignKey.fkColumns()[0].name()}":w -> "${foreignKey.pkTableName().dbName()}":"${foreignKey.pkColumns()[0].name()}-E":e [dir=both arrowhead=nonetee arrowtail=nonecrowodot label="${foreignKey.fkName().get()}"];
+        "${foreignKey.fkTableName().dbName()}" -> "${foreignKey.pkTableName().dbName()}" [dir=both arrowhead=nonetee arrowtail=nonecrowodot headlabel="${foreignKey.pkColumnNames(", ")}" taillabel="${foreignKey.fkColumnNames(", ")}"];
 </#if>
 </#list>
 ]]>
