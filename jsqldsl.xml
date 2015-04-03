@@ -9,13 +9,15 @@
             <username>sa</username>
         </jdbc>
 
-        <includes>
+        <tables>
             <include>
                 <schema>PUBLIC</schema>
-                <!--<table>DEPARTMENT</table>-->
-                <!--<table>EMPLOYEE</table>-->
             </include>
-        </includes>
+            <exclude>
+                <schema>PUBLIC</schema>
+                <table>DATABASECHANGE.*</table>
+            </exclude>
+        </tables>
     </source>
 
     <targets>
@@ -40,42 +42,41 @@
                 <property>
                     <name>start-document-template</name>
                     <value>
-                        digraph G {
-                        node [
-                        fontname="Helvetica"
-                        fontsize="11"
-                        shape="plaintext"
-                        ];
-                        edge [
-                        arrowsize="0.8"
-                        fontname="Helvetica"
-                        fontsize="8"
-                        ];
+digraph G {
+    node [
+        fontname="Helvetica"
+        fontsize="11"
+        shape="plaintext"
+    ];
+    edge [
+        arrowsize="0.8"
+        fontname="Helvetica"
+        fontsize="8"
+    ];
                     </value>
                 </property>
                 <property>
                     <name>table-template</name>
                     <value>
-                        ${tableMetaData.tableName().dbName()} [label=<![CDATA[
-<<table BORDER="2" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-<tr><td COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">${tableMetaData.tableName().dbName()}</td></tr>
+${tableMetaData.tableName().dbName()} [label=<![CDATA[
+<<TABLE BORDER="2" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+<TR><TD COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">${tableMetaData.tableName().dbName()}</TD></TR>
 <#list tableMetaData.fields() as field>
-<tr><td port="${field.name()}" COLSPAN="2"
+<TR><TD PORT="${field.name()}" COLSPAN="2"
 <#if field.isPrimaryKey()>
-BGCOLOR="#bed1b8"
+    BGCOLOR="#bed1b8"
 </#if>
-ALIGN="LEFT">
-<#if field.isNullable()>
-<FONT COLOR="#696969">${field.name()}</FONT>
+ALIGN="LEFT"><#if field.isNullable()>
+    <FONT COLOR="#696969">${field.name()}</FONT>
 <#else>
-${field.name()}
+    ${field.name()}
 </#if>
-</td><td port="${field.name()}-E">${field.fieldType()}<#if field.columnSize().isPresent()>
-(${field.columnSize().get()})
+</TD><TD PORT="${field.name()}-E">${field.fieldType()}<#if field.columnSize().isPresent()>
+    (${field.columnSize().get()})
 </#if>
-</td></tr>
+</TD></TR>
 </#list>
-</table>
+</TABLE>
 >];
 <#list tableMetaData.foreignKeys() as foreignKey>
 <#if foreignKey.fkColumns()[0].isNullable()>
@@ -90,7 +91,7 @@ ${field.name()}
                 <property>
                     <name>end-document-template</name>
                     <value>
-                        }
+}
                     </value>
                 </property>
                 <property>
