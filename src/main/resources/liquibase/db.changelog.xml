@@ -26,7 +26,9 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
             <column name="name" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
-            <column name="department_id" type="int"/>
+            <column name="department_id" type="int">
+                <constraints nullable="false"/>
+            </column>
             <column name="active" type="boolean" defaultValueBoolean="true"/>
         </createTable>
     </changeSet>

@@ -55,7 +55,7 @@
                     <name>table-template</name>
                     <value>
                         ${tableMetaData.tableName().dbName()} [label=<![CDATA[
-<<table BORDER="2" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+<<table BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
 <tr><td COLSPAN="3" BGCOLOR="#9bab96" ALIGN="CENTER">${tableMetaData.tableName().dbName()}</td></tr>
 <#list tableMetaData.fields() as field>
 <tr><td port="${field.name()}" COLSPAN="2" <#if field.isPrimaryKey()>
@@ -69,7 +69,11 @@ ALIGN="LEFT">${field.name()}</td><td>${field.fieldType()}<#if field.columnSize()
 </table>
 >];
 <#list tableMetaData.foreignKeys() as foreignKey>
+<#if foreignKey.fkColumns()[0].isNullable()>
 "${foreignKey.fkTableName().dbName()}":"${foreignKey.fkColumns()[0].name()}" -> "${foreignKey.pkTableName().dbName()}":"${foreignKey.pkColumns()[0].name()}" [arrowhead=none dir=back arrowtail=crowodot];
+<#else>
+"${foreignKey.fkTableName().dbName()}":"${foreignKey.fkColumns()[0].name()}" -> "${foreignKey.pkTableName().dbName()}":"${foreignKey.pkColumns()[0].name()}" [dir=both arrowhead=tee arrowtail=crowodot];
+</#if>
 </#list>
 ]]>
                     </value>
