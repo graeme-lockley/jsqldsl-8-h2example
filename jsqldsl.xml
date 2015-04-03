@@ -72,7 +72,7 @@ ALIGN="LEFT"><#if field.isNullable()>
     ${field.name()}
 </#if>
 </TD><TD>${field.fieldType()}<#if field.columnSize().isPresent()>
-    (${field.columnSize().get()})
+(${field.columnSize().get()})
 </#if>
 </TD></TR>
 </#list>
