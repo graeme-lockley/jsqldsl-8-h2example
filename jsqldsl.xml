@@ -71,7 +71,11 @@ ALIGN="LEFT"><#if field.isNullable()>
 <#else>
     ${field.name()}
 </#if>
-</TD><TD>${field.fieldType()}<#if field.columnSize().isPresent()>
+</TD><TD
+<#if field.isPrimaryKey()>
+    BGCOLOR="#bed1b8"
+</#if>
+>${field.fieldType()}<#if field.columnSize().isPresent()>
 (${field.columnSize().get()})
 </#if>
 </TD></TR>
