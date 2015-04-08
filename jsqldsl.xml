@@ -43,6 +43,14 @@
                     <name>driver</name>
                     <value>za.co.no9.jsqldsl.drivers.H2</value>
                 </property>
+                <property>
+                    <name>template-output</name>
+                    <value>target/schemadoc/output.dot</value>
+                </property>
+                <property>
+                    <name>post-command</name>
+                    <value>dot -T png -o target/schemadoc/output.png target/schemadoc/output.dot</value>
+                </property>
             </properties>
         </target>
     </targets>
